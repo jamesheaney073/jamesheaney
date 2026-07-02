@@ -1,0 +1,1119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>James Heaney Photography — Wildlife, Landscape &amp; Land Rover</title>
+<link rel="icon" href="images/logo-jh.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300..700&family=Work+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg-dark:#12160F;
+    --bg-cream:#F3EFE4;
+    --moss:#3C4A34;
+    --moss-light:#586B4C;
+    --ochre:#C97A3B;
+    --stone:#8B8574;
+    --ink:#1B1B17;
+    --cream-ink:#F3EFE4;
+    --line-dark:rgba(243,239,228,0.14);
+    --line-light:rgba(27,27,23,0.12);
+  }
+
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:'Work Sans', sans-serif;
+    background:var(--bg-cream);
+    color:var(--ink);
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    *{animation-duration:0.001ms !important; transition-duration:0.001ms !important;}
+  }
+
+  a{color:inherit; text-decoration:none;}
+  ul{list-style:none;}
+  img{max-width:100%; display:block;}
+
+  .eyebrow{
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.72rem;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--ochre);
+    display:inline-flex;
+    align-items:center;
+    gap:0.6em;
+  }
+  .eyebrow::before{
+    content:'';
+    width:20px; height:1px;
+    background:var(--ochre);
+    display:inline-block;
+  }
+
+  .tag{
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.68rem;
+    letter-spacing:0.04em;
+    padding:0.45em 0.7em;
+    border:1px solid currentColor;
+    display:inline-flex;
+    gap:0.5em;
+    align-items:center;
+  }
+
+  h1,h2,h3{
+    font-family:'Fraunces', serif;
+    font-weight:500;
+    line-height:1.05;
+    letter-spacing:-0.01em;
+  }
+
+  section{position:relative;}
+  .wrap{
+    max-width:1180px;
+    margin:0 auto;
+    padding:0 6vw;
+  }
+
+  /* ---------- WATERMARK ---------- */
+  .wm{
+    position:absolute;
+    right:0.6rem; bottom:0.6rem;
+    width:64px;
+    opacity:0.55;
+    pointer-events:none;
+    filter:drop-shadow(0 1px 2px rgba(0,0,0,0.35));
+    z-index:3;
+  }
+
+  /* ---------- NAV ---------- */
+  header{
+    position:fixed; top:0; left:0; right:0;
+    z-index:100;
+    padding:1.2rem 6vw;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    transition:background 0.4s ease, padding 0.4s ease;
+  }
+  header.scrolled{
+    background:rgba(18,22,15,0.86);
+    backdrop-filter:blur(10px);
+    padding:0.8rem 6vw;
+    border-bottom:1px solid var(--line-dark);
+  }
+  .wordmark{
+    display:flex;
+    align-items:center;
+    gap:0.7rem;
+  }
+  .wordmark img{
+    height:30px; width:auto;
+    border-radius:3px;
+  }
+  .wordmark .txt{
+    font-family:'Fraunces', serif;
+    font-size:1.1rem;
+    font-weight:500;
+    color:var(--cream-ink);
+    letter-spacing:0.01em;
+  }
+  .wordmark .txt span{color:var(--ochre);}
+  nav.links{
+    display:flex;
+    gap:2.4rem;
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.74rem;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+  }
+  nav.links a{
+    color:var(--cream-ink);
+    opacity:0.75;
+    position:relative;
+    padding-bottom:4px;
+    transition:opacity 0.25s ease;
+  }
+  nav.links a:hover, nav.links a:focus-visible{opacity:1;}
+  nav.links a::after{
+    content:'';
+    position:absolute; left:0; bottom:0;
+    width:0; height:1px;
+    background:var(--ochre);
+    transition:width 0.25s ease;
+  }
+  nav.links a:hover::after, nav.links a:focus-visible::after{width:100%;}
+
+  .menu-btn{
+    display:none;
+    flex-direction:column;
+    gap:5px;
+    background:none; border:none; cursor:pointer;
+    padding:8px;
+  }
+  .menu-btn span{
+    width:22px; height:1.5px; background:var(--cream-ink);
+  }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    height:100vh;
+    min-height:640px;
+    position:relative;
+    color:var(--cream-ink);
+    display:flex;
+    flex-direction:column;
+    justify-content:flex-end;
+    overflow:hidden;
+  }
+  .hero-bg{
+    position:absolute; inset:0;
+  }
+  .hero-slide{
+    position:absolute; inset:0;
+    background-size:cover;
+    background-position:center 30%;
+    opacity:0;
+    transition:opacity 1.8s ease;
+  }
+  .hero-slide.active{opacity:1;}
+  .hero-gradient{
+    position:absolute; inset:0;
+    background-image:linear-gradient(180deg, rgba(15,19,13,0.35) 0%, rgba(15,19,13,0.35) 40%, rgba(10,13,9,0.92) 100%);
+    pointer-events:none;
+  }
+  .hero-grain{
+    position:absolute; inset:0;
+    background-image:radial-gradient(rgba(243,239,228,0.045) 1px, transparent 1px);
+    background-size:3px 3px;
+    pointer-events:none;
+    opacity:0.4;
+  }
+  .hero-inner{
+    position:relative;
+    z-index:2;
+    padding:0 6vw 6.5rem;
+  }
+  .hero-inner .eyebrow{margin-bottom:1.6rem;}
+  .hero h1{
+    font-size:clamp(2.6rem, 7vw, 5.4rem);
+    max-width:18ch;
+  }
+  .hero h1 em{
+    font-style:italic;
+    color:var(--ochre);
+    font-weight:400;
+  }
+  .hero p.sub{
+    margin-top:1.4rem;
+    max-width:42ch;
+    font-size:1.05rem;
+    color:rgba(243,239,228,0.72);
+    font-weight:300;
+  }
+
+  .scroll-cue{
+    position:absolute;
+    bottom:2.2rem;
+    right:6vw;
+    display:flex;
+    align-items:center;
+    gap:0.8rem;
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.68rem;
+    letter-spacing:0.1em;
+    color:rgba(243,239,228,0.55);
+    z-index:2;
+  }
+  .scroll-cue .line{
+    width:1px; height:34px;
+    background:rgba(243,239,228,0.4);
+    position:relative;
+    overflow:hidden;
+  }
+  .scroll-cue .line::after{
+    content:'';
+    position:absolute;
+    top:-100%; left:0; width:100%; height:100%;
+    background:var(--ochre);
+    animation:cue 2.2s ease-in-out infinite;
+  }
+  @keyframes cue{
+    0%{top:-100%;} 50%{top:0%;} 100%{top:100%;}
+  }
+
+  /* ---------- SECTION HEADERS ---------- */
+  .section-head{
+    padding:7rem 0 3.5rem;
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-end;
+    gap:2rem;
+    flex-wrap:wrap;
+    border-bottom:1px solid var(--line-light);
+    margin-bottom:3.5rem;
+  }
+  .section-head h2{font-size:clamp(2.1rem, 4vw, 3.2rem);}
+  .section-head .desc{
+    max-width:34ch;
+    color:var(--stone);
+    font-size:0.95rem;
+    font-weight:300;
+    line-height:1.5;
+  }
+
+  /* ---------- GALLERY ---------- */
+  .gallery{background:var(--bg-cream);}
+  .filters{
+    display:flex;
+    gap:0.6rem;
+    flex-wrap:wrap;
+    margin-bottom:2.6rem;
+  }
+  .filter-btn{
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.72rem;
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+    padding:0.55em 1em;
+    border:1px solid var(--line-light);
+    background:transparent;
+    color:var(--ink);
+    cursor:pointer;
+    transition:all 0.2s ease;
+  }
+  .filter-btn:hover{border-color:var(--ochre); color:var(--ochre);}
+  .filter-btn.active{background:var(--ink); border-color:var(--ink); color:var(--bg-cream);}
+
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:1.6px;
+    background:var(--ink);
+    margin-bottom:2rem;
+  }
+  .plate{
+    position:relative;
+    aspect-ratio:4/5;
+    overflow:hidden;
+    background:var(--moss);
+    cursor:default;
+    opacity:0;
+    transform:translateY(18px);
+    transition:opacity 0.6s ease, transform 0.6s ease;
+  }
+  .plate.visible{opacity:1; transform:translateY(0);}
+  .plate.hidden-item{display:none;}
+  .plate img.photo{
+    position:absolute; inset:0;
+    width:100%; height:100%;
+    object-fit:cover;
+    transition:transform 0.6s ease;
+  }
+  .plate:hover img.photo{transform:scale(1.06);}
+  .plate .veil{
+    position:absolute; inset:0;
+    background:linear-gradient(180deg, transparent 45%, rgba(0,0,0,0.6) 100%);
+  }
+  .plate .label{
+    position:absolute; left:0; right:0; bottom:0;
+    padding:0.9rem 1rem;
+    color:#F3EFE4;
+    z-index:2;
+  }
+  .plate .label .name{
+    font-family:'Fraunces', serif;
+    font-size:1rem;
+    font-style:italic;
+  }
+  .plate .label .meta{
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.62rem;
+    letter-spacing:0.05em;
+    color:rgba(243,239,228,0.7);
+    margin-top:0.2rem;
+    text-transform:uppercase;
+  }
+  .plate .corner{
+    position:absolute; top:0.8rem; left:0.8rem;
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.6rem;
+    color:rgba(243,239,228,0.6);
+    border:1px solid rgba(243,239,228,0.4);
+    padding:0.2em 0.5em;
+    z-index:2;
+  }
+
+  .gallery-note{
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.72rem;
+    color:var(--stone);
+    text-align:center;
+    padding:1rem 0 5rem;
+    border-top:1px dashed var(--line-light);
+    margin-top:1rem;
+  }
+
+  /* ---------- CATEGORY TILES ---------- */
+  .cat-grid{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:1.6px;
+    background:var(--ink);
+    margin-bottom:2rem;
+  }
+  .cat-tile{
+    position:relative;
+    aspect-ratio:3/4;
+    overflow:hidden;
+    cursor:pointer;
+    background:var(--moss);
+    border:none;
+    padding:0;
+    display:block;
+    width:100%;
+  }
+  .cat-tile img{
+    position:absolute; inset:0;
+    width:100%; height:100%;
+    object-fit:cover;
+    transition:transform 0.6s ease;
+  }
+  .cat-tile:hover img{transform:scale(1.06);}
+  .cat-tile .veil{
+    position:absolute; inset:0;
+    background:linear-gradient(180deg, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0.7) 100%);
+  }
+  .cat-tile .cat-info{
+    position:absolute; left:0; right:0; bottom:0;
+    padding:1.8rem 1.6rem;
+    color:#F3EFE4;
+    text-align:left;
+  }
+  .cat-tile h3{
+    font-size:1.7rem;
+    font-style:italic;
+    font-weight:500;
+  }
+  .cat-tile .cat-count{
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.66rem;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:rgba(243,239,228,0.65);
+    margin-top:0.4rem;
+  }
+
+  /* ---------- CATEGORY DETAIL ---------- */
+  .back-btn{
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.72rem;
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+    background:none;
+    border:none;
+    color:var(--stone);
+    cursor:pointer;
+    padding:0;
+    margin-bottom:2.4rem;
+    display:inline-flex;
+    align-items:center;
+    gap:0.5em;
+    transition:color 0.2s ease;
+  }
+  .back-btn:hover{color:var(--ochre);}
+  .cat-detail-head{margin-bottom:2.4rem;}
+  .cat-detail-head h3{
+    font-size:clamp(1.8rem, 3vw, 2.6rem);
+    margin-bottom:0.5rem;
+  }
+  .cat-detail-head p{
+    color:var(--stone);
+    font-weight:300;
+    font-size:0.95rem;
+  }
+  .detail-grid{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:1.6px;
+    background:var(--ink);
+    margin-bottom:2rem;
+  }
+
+  /* ---------- LIGHTBOX ---------- */
+  .lightbox{
+    position:fixed; inset:0;
+    background:rgba(10,12,8,0.97);
+    z-index:200;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    padding:2rem;
+  }
+  .lightbox[hidden]{display:none;}
+  .lb-top{
+    position:absolute;
+    top:1.4rem; left:1.4rem; right:1.4rem;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    font-family:'JetBrains Mono', monospace;
+    color:rgba(243,239,228,0.7);
+    font-size:0.75rem;
+    letter-spacing:0.06em;
+    z-index:2;
+  }
+  .lb-close{
+    background:none; border:none;
+    color:rgba(243,239,228,0.8);
+    font-size:2rem;
+    line-height:1;
+    cursor:pointer;
+    padding:0.2rem 0.4rem;
+  }
+  .lb-close:hover{color:var(--ochre);}
+  .lb-frame{
+    position:relative;
+    max-width:min(88vw, 1100px);
+    max-height:68vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+  .lb-frame .wm{width:135px; right:1.2rem; bottom:1.2rem;}
+  .lb-frame img{
+    max-width:100%;
+    max-height:68vh;
+    object-fit:contain;
+    box-shadow:0 20px 60px rgba(0,0,0,0.5);
+  }
+  .lb-arrow{
+    position:absolute;
+    top:45%;
+    transform:translateY(-50%);
+    background:none;
+    border:none;
+    color:rgba(243,239,228,0.55);
+    font-size:2.6rem;
+    cursor:pointer;
+    padding:1rem;
+    transition:color 0.2s ease;
+    z-index:2;
+  }
+  .lb-arrow:hover{color:var(--ochre);}
+  .lb-prev{left:0.2rem;}
+  .lb-next{right:0.2rem;}
+  .lb-caption{
+    margin-top:1.8rem;
+    text-align:center;
+  }
+  .lb-title{
+    font-family:'Fraunces', serif;
+    font-style:italic;
+    font-size:1.35rem;
+    color:#F3EFE4;
+  }
+  .lb-location{
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.7rem;
+    letter-spacing:0.05em;
+    text-transform:uppercase;
+    color:rgba(243,239,228,0.55);
+    margin-top:0.5rem;
+  }
+
+  /* ---------- ABOUT ---------- */
+  .about{
+    background:var(--bg-dark);
+    color:var(--cream-ink);
+  }
+  .about-grid{
+    display:grid;
+    grid-template-columns:0.85fr 1.15fr;
+    gap:5vw;
+    padding-bottom:7rem;
+    align-items:start;
+  }
+  .portrait{
+    aspect-ratio:4/5;
+    background:linear-gradient(160deg, #2B3524, #171C11);
+    border:1px solid var(--line-dark);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    position:relative;
+  }
+  .portrait img{
+    width:42%;
+    border-radius:6px;
+  }
+  .portrait .cap{
+    position:absolute; bottom:1rem; left:1rem; right:1rem;
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.62rem;
+    letter-spacing:0.05em;
+    color:rgba(243,239,228,0.45);
+    text-transform:uppercase;
+  }
+  .about-copy p{
+    font-weight:300;
+    line-height:1.75;
+    color:rgba(243,239,228,0.78);
+    max-width:58ch;
+    margin-bottom:1.2rem;
+    font-size:1.02rem;
+  }
+  .about-copy blockquote{
+    font-family:'Fraunces', serif;
+    font-style:italic;
+    font-size:1.5rem;
+    line-height:1.4;
+    color:var(--ochre);
+    margin:2.2rem 0;
+    max-width:24ch;
+    border-left:2px solid var(--ochre);
+    padding-left:1.2rem;
+  }
+  .pillars{
+    display:flex;
+    gap:1.4rem;
+    margin-top:2.2rem;
+    flex-wrap:wrap;
+  }
+  .pillars .tag{color:rgba(243,239,228,0.65); border-color:rgba(243,239,228,0.28);}
+  .stat-row{
+    display:flex;
+    gap:2.8rem;
+    margin-top:2.6rem;
+    flex-wrap:wrap;
+  }
+  .stat-row div{border-top:1px solid var(--line-dark); padding-top:0.8rem; min-width:110px;}
+  .stat-row .num{
+    font-family:'Fraunces', serif;
+    font-size:2rem;
+  }
+  .stat-row .lab{
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.62rem;
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+    color:var(--stone);
+    margin-top:0.3rem;
+  }
+  .kit-list{
+    margin-top:2.6rem;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:0.6rem 2rem;
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.78rem;
+    color:rgba(243,239,228,0.6);
+  }
+  .kit-list li{
+    border-bottom:1px solid var(--line-dark);
+    padding-bottom:0.5rem;
+    display:flex;
+    justify-content:space-between;
+    gap:1rem;
+  }
+  .signoff{
+    margin-top:2.6rem;
+    width:150px;
+    border-radius:4px;
+  }
+
+  /* ---------- CONTACT ---------- */
+  .contact{background:var(--bg-cream);}
+  .contact-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:5vw;
+    padding-bottom:7rem;
+  }
+  .contact-info p{
+    color:var(--stone);
+    font-weight:300;
+    line-height:1.7;
+    max-width:40ch;
+    margin-bottom:2.2rem;
+  }
+  .contact-info a.email{
+    font-family:'Fraunces', serif;
+    font-style:italic;
+    font-size:1.7rem;
+    display:inline-block;
+    border-bottom:1px solid var(--ink);
+    padding-bottom:0.2rem;
+    margin-bottom:2.4rem;
+    transition:color 0.2s ease, border-color 0.2s ease;
+  }
+  .contact-info a.email:hover{color:var(--ochre); border-color:var(--ochre);}
+  .social-row{
+    display:flex; gap:1.4rem;
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.75rem;
+    text-transform:uppercase;
+    letter-spacing:0.05em;
+  }
+  .social-row a{
+    border-bottom:1px solid transparent;
+    padding-bottom:2px;
+    transition:border-color 0.2s ease, color 0.2s ease;
+  }
+  .social-row a:hover{border-color:var(--ochre); color:var(--ochre);}
+
+  form{display:flex; flex-direction:column; gap:1.3rem;}
+  .field{display:flex; flex-direction:column; gap:0.5rem;}
+  .field label{
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.66rem;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--stone);
+  }
+  .field input, .field textarea{
+    font-family:'Work Sans', sans-serif;
+    font-size:0.95rem;
+    background:transparent;
+    border:none;
+    border-bottom:1px solid var(--line-light);
+    padding:0.6rem 0.1rem;
+    color:var(--ink);
+    resize:none;
+  }
+  .field input:focus, .field textarea:focus{
+    outline:none;
+    border-color:var(--ochre);
+  }
+  .submit-btn{
+    align-self:flex-start;
+    margin-top:0.6rem;
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.75rem;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    background:var(--ink);
+    color:var(--bg-cream);
+    border:1px solid var(--ink);
+    padding:0.9em 1.8em;
+    cursor:pointer;
+    transition:background 0.2s ease, color 0.2s ease;
+  }
+  .submit-btn:hover{background:transparent; color:var(--ink);}
+  .form-msg{
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.72rem;
+    color:var(--moss);
+    min-height:1.2em;
+  }
+
+  /* ---------- FOOTER ---------- */
+  footer{
+    background:var(--bg-dark);
+    color:rgba(243,239,228,0.55);
+    padding:2.4rem 6vw;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:1rem;
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.68rem;
+    letter-spacing:0.04em;
+    border-top:1px solid var(--line-dark);
+  }
+  footer a:hover{color:var(--ochre);}
+
+  /* ---------- RESPONSIVE ---------- */
+  @media (max-width:900px){
+    nav.links{display:none;}
+    .menu-btn{display:flex;}
+    .about-grid, .contact-grid{grid-template-columns:1fr;}
+    .cat-grid, .detail-grid{grid-template-columns:repeat(2,1fr);}
+    .kit-list{grid-template-columns:1fr;}
+  }
+  @media (max-width:560px){
+    .cat-grid, .detail-grid{grid-template-columns:1fr;}
+    .stat-row{gap:1.6rem;}
+    .lb-arrow{font-size:2rem; padding:0.5rem;}
+  }
+
+  nav.links.open{
+    display:flex;
+    position:fixed;
+    top:0; right:0;
+    height:100vh;
+    width:70vw;
+    max-width:320px;
+    background:#0F1310;
+    flex-direction:column;
+    padding:6rem 2rem;
+    gap:2rem;
+    z-index:99;
+    border-left:1px solid var(--line-dark);
+  }
+</style>
+</head>
+<body>
+
+<header id="siteHeader">
+  <a href="#top" class="wordmark">
+    <img src="images/logo-jh.png" alt="JH logo">
+    <span class="txt">James Heaney <span>·</span> Photography</span>
+  </a>
+  <nav class="links" id="navLinks">
+    <a href="#gallery">Gallery</a>
+    <a href="#about">About</a>
+    <a href="#contact">Contact</a>
+  </nav>
+  <button class="menu-btn" id="menuBtn" aria-label="Toggle menu">
+    <span></span><span></span><span></span>
+  </button>
+</header>
+
+<section class="hero" id="top">
+  <div class="hero-bg" id="heroBg">
+    <div class="hero-slide active" style="background-image:url('images/sparrowhawk-face.jpg')"></div>
+    <div class="hero-slide" style="background-image:url('images/wild-0F3A3691.jpg')"></div>
+    <div class="hero-slide" style="background-image:url('images/scene-IMG_0431.jpg')"></div>
+    <div class="hero-slide" style="background-image:url('images/land-rover-camp.jpg')"></div>
+    <div class="hero-slide" style="background-image:url('images/scene-IMG_0568.jpg')"></div>
+    <div class="hero-gradient"></div>
+  </div>
+  <div class="hero-grain"></div>
+  <div class="hero-inner">
+    <span class="eyebrow">Field notes from the wild</span>
+    <h1>Wildlife, landscape<br>&amp; life <em>on the road</em></h1>
+    <p class="sub">Photography from hides, hillsides and wherever the Land Rover ends up — British wildlife, wide landscapes, and the trips in between.</p>
+  </div>
+  <div class="scroll-cue"><span class="line"></span> SCROLL</div>
+</section>
+
+<section class="gallery" id="gallery">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Selected work</h2>
+      <p class="desc">A working archive — wildlife sightings, landscapes, and trips further afield. Choose a category to browse.</p>
+    </div>
+
+    <!-- Category tiles -->
+    <div class="cat-grid" id="catGrid"></div>
+
+    <!-- Category detail (hidden until a tile is opened) -->
+    <div class="cat-detail" id="catDetail" hidden>
+      <button class="back-btn" id="backBtn">&larr; All categories</button>
+      <div class="cat-detail-head">
+        <h3 id="catDetailTitle"></h3>
+        <p id="catDetailSub"></p>
+      </div>
+      <div class="detail-grid" id="detailGrid"></div>
+    </div>
+
+    <p class="gallery-note">Some captions are placeholders — fill in exact locations and dates in the <code>photos</code> array near the bottom of the file.</p>
+  </div>
+</section>
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox" hidden>
+  <div class="lb-top">
+    <span class="lb-count" id="lbCount"></span>
+    <button class="lb-close" id="lbClose" aria-label="Close">&times;</button>
+  </div>
+  <button class="lb-arrow lb-prev" id="lbPrev" aria-label="Previous">&#8249;</button>
+  <div class="lb-frame">
+    <img id="lbImage" src="" alt="">
+    <img class="wm" src="images/signature.png" alt="">
+  </div>
+  <button class="lb-arrow lb-next" id="lbNext" aria-label="Next">&#8250;</button>
+  <div class="lb-caption">
+    <div class="lb-title" id="lbTitle"></div>
+    <div class="lb-location" id="lbLocation"></div>
+  </div>
+</div>
+
+<section class="about" id="about">
+  <div class="wrap">
+    <div class="section-head" style="border-color:var(--line-dark);">
+      <h2>About</h2>
+      <p class="desc" style="color:rgba(243,239,228,0.55);">A short introduction — replace with your own story.</p>
+    </div>
+    <div class="about-grid">
+      <div class="portrait">
+        <img src="images/logo-jh.png" alt="JH mark">
+        <span class="cap">Add your portrait</span>
+      </div>
+      <div class="about-copy">
+        <p>I'm James Heaney. Most of my time outdoors splits three ways — waiting in a hide for a bird to settle, walking landscapes for the light, or heading further afield in the Land Rover with no fixed itinerary. This paragraph is placeholder copy; swap it for your own story: how you started, what draws you outdoors, and what you're chasing with the camera.</p>
+        <p>The wildlife work is mostly patience — hides at dawn, long lenses, longer waits. The landscape and travel shots come from the same instinct: stop, look properly, and see what's actually there. Edit this section to describe your process, your favourite locations, or the philosophy behind your work.</p>
+        <blockquote>"The best photograph is the one the animal doesn't know you took."</blockquote>
+        <div class="pillars">
+          <span class="tag">Wildlife</span>
+          <span class="tag">Landscape</span>
+          <span class="tag">Land Rover &amp; Overland</span>
+        </div>
+        <div class="stat-row">
+          <div><div class="num">08</div><div class="lab">Years shooting</div></div>
+          <div><div class="num">14</div><div class="lab">Countries</div></div>
+          <div><div class="num">120+</div><div class="lab">Species logged</div></div>
+        </div>
+        <ul class="kit-list">
+          <li><span>Camera</span><span>Add model</span></li>
+          <li><span>Primary lens</span><span>Add lens</span></li>
+          <li><span>Support</span><span>Add tripod / gimbal</span></li>
+          <li><span>Field kit</span><span>Defender + roof tent</span></li>
+        </ul>
+        <img class="signoff" src="images/signature.png" alt="James Heaney signature">
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="contact" id="contact">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Get in touch</h2>
+      <p class="desc">Prints, commissions, or just talking wildlife and Land Rovers — reach out below.</p>
+    </div>
+    <div class="contact-grid">
+      <div class="contact-info">
+        <p>Available for print sales, editorial commissions, and guided trips. Based in the UK, working worldwide.</p>
+        <a class="email" href="mailto:hello@jamesheaney.co.uk">hello@jamesheaney.co.uk</a>
+        <div class="social-row">
+          <a href="#">Instagram</a>
+          <a href="#">Facebook</a>
+          <a href="#">Prints</a>
+        </div>
+      </div>
+      <form id="contactForm" name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+        <input type="hidden" name="form-name" value="contact">
+        <p hidden>
+          <label>Leave this field blank: <input name="bot-field"></label>
+        </p>
+        <div class="field">
+          <label for="name">Name</label>
+          <input id="name" name="name" type="text" required>
+        </div>
+        <div class="field">
+          <label for="email">Email</label>
+          <input id="email" name="email" type="email" required>
+        </div>
+        <div class="field">
+          <label for="message">Message</label>
+          <textarea id="message" name="message" rows="4" required></textarea>
+        </div>
+        <button type="submit" class="submit-btn">Send message</button>
+        <p class="form-msg" id="formMsg"></p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span>© 2026 James Heaney Photography. All rights reserved.</span>
+  <span><a href="#top">Back to top ↑</a></span>
+</footer>
+
+<script>
+  // Hero background slideshow
+  const heroSlides = document.querySelectorAll('.hero-slide');
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (heroSlides.length > 1 && !prefersReducedMotion) {
+    let heroIndex = 0;
+    setInterval(() => {
+      heroSlides[heroIndex].classList.remove('active');
+      heroIndex = (heroIndex + 1) % heroSlides.length;
+      heroSlides[heroIndex].classList.add('active');
+    }, 5000);
+  }
+
+  // Header scroll state
+  const header = document.getElementById('siteHeader');
+  window.addEventListener('scroll', () => {
+    header.classList.toggle('scrolled', window.scrollY > 40);
+  });
+
+  // Mobile menu
+  const menuBtn = document.getElementById('menuBtn');
+  const navLinks = document.getElementById('navLinks');
+  menuBtn.addEventListener('click', () => navLinks.classList.toggle('open'));
+  navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navLinks.classList.remove('open')));
+
+  // Categories — each needs a hero image for its tile
+  const categories = [
+    { key:'wildlife', title:'Wildlife', subtitle:'Birds, mammals & the moments in between', hero:'images/sparrowhawk-face.jpg' },
+    { key:'landscape', title:'Landscape', subtitle:'Fells, water & weather', hero:'images/scene-IMG_0568.jpg' },
+    { key:'landrover', title:'Land Rover', subtitle:'Wild camps & the roads between', hero:'images/land-rover-camp.jpg' }
+  ];
+
+  // Real photo data — edit title, location and cat (wildlife | landscape | landrover) as needed
+  const photos = [
+    { src:'images/sparrowhawk-face.jpg', title:'Sparrowhawk', location:'Head-on, winter light — UK, 2026', cat:'wildlife' },
+    { src:'images/owl-log.jpg', title:'Little Owl', location:'On watch, log perch — UK, 2026', cat:'wildlife' },
+    { src:'images/hare-grass.jpg', title:'Brown Hare', location:'Grazing among buttercups — UK, 2026', cat:'wildlife' },
+    { src:'images/sparrowhawk-branch.jpg', title:'Sparrowhawk', location:'Landing on lichen — UK, 2026', cat:'wildlife' },
+    { src:'images/hare-path.jpg', title:'Brown Hare', location:'Track-side, early summer — UK, 2026', cat:'wildlife' },
+    { src:'images/squirrel-tree.jpg', title:'Grey Squirrel', location:'Climbing, spring light — UK, 2026', cat:'wildlife' },
+    { src:'images/jay-flight.png', title:'Eurasian Jay', location:'Taking off, first snow — UK, 2026', cat:'wildlife' },
+    { src:'images/ladybird-stem.jpg', title:'Ladybird', location:'On a grass stem — UK, 2026', cat:'wildlife' },
+    { src:'images/wild-0F3A7175.jpg', title:'Marsh Harrier', location:'Carrying nesting material — UK, 2026', cat:'wildlife' },
+    { src:'images/wild-0F3A2626.jpg', title:'Stonechat', location:'Perched on a stem — UK, 2026', cat:'wildlife' },
+    { src:'images/wild-0F3A6959.jpg', title:'Red Kite', location:'Banking overhead — UK, 2026', cat:'wildlife' },
+    { src:'images/wild-0F3A3225.jpg', title:'Red Kite', location:'Wings at full stretch — UK, 2026', cat:'wildlife' },
+    { src:'images/wild-0F3A3583.jpg', title:'Raptor at Sunset', location:'Silhouette against the sun — UK, 2026', cat:'wildlife' },
+    { src:'images/wild-0F3A3547.jpg', title:'Red Kite', location:'Close pass overhead — UK, 2026', cat:'wildlife' },
+    { src:'images/wild-0F3A2499.jpg', title:'Roe Deer', location:"Alert, water's edge — UK, 2026", cat:'wildlife' },
+    { src:'images/wild-0F3A2738.jpg', title:'Egret', location:'In flight — UK, 2026', cat:'wildlife' },
+    { src:'images/wild-0F3A0411.jpg', title:'Robin', location:'Autumn perch — UK, 2026', cat:'wildlife' },
+    { src:'images/wild-0F3A3532.jpg', title:'Raptor at Sunset', location:'Evening flight, silhouette — UK, 2026', cat:'wildlife' },
+    { src:'images/wild-0F3A9814.jpg', title:'Kestrel', location:'On the fence post — UK, 2026', cat:'wildlife' },
+    { src:'images/wild-0F3A3691.jpg', title:'Red Kites', location:'A pair, mid-air — UK, 2026', cat:'wildlife' },
+    { src:'images/wild-0F3A9035.jpg', title:'Kingfisher', location:'On a low branch — UK, 2026', cat:'wildlife' },
+    { src:'images/grass-macro.jpg', title:'Backlit Meadow', location:'Evening light, grassland — UK, 2026', cat:'landscape' },
+    { src:'images/wild-4.jpg', title:'Mountain Ridge', location:'Snow line, winter — UK, 2026', cat:'landscape' },
+    { src:'images/wild-5.jpg', title:'Stone Wall', location:'Fellside boundary — UK, 2026', cat:'landscape' },
+    { src:'images/scene-IMG_0406.jpg', title:'Ridge Light', location:'Golden light on the fellside — UK, 2026', cat:'landscape' },
+    { src:'images/scene-IMG_0415.jpg', title:'Cloud Inversion', location:'Fells above the clag — UK, 2026', cat:'landscape' },
+    { src:'images/scene-IMG_0460.jpg', title:'Glory in the Mist', location:'Circular rainbow over the valley — UK, 2026', cat:'landscape' },
+    { src:'images/scene-IMG_0524.jpg', title:'Still Water', location:'Mirror-calm lake, snow on the fells — UK, 2026', cat:'landscape' },
+    { src:'images/scene-IMG_0332.jpg', title:'Peak Above the Cloud', location:'Forest and fell — UK, 2026', cat:'landscape' },
+    { src:'images/scene-IMG_0545.jpg', title:'First Light', location:'Sunrise on the ridge — UK, 2026', cat:'landscape' },
+    { src:'images/scene-IMG_0431.jpg', title:'Sun Halo', location:'Frosted summit, midwinter — UK, 2026', cat:'landscape' },
+    { src:'images/scene-IMG_0357.jpg', title:'Breaking Cloud', location:'Summit clearing — UK, 2026', cat:'landscape' },
+    { src:'images/scene-IMG_0433.jpg', title:'Winter Light', location:'Sun through cloud — UK, 2026', cat:'landscape' },
+    { src:'images/scene-IMG_0568.jpg', title:'Evening Moorings', location:'Sunset at the marina — UK, 2026', cat:'landscape' },
+    { src:'images/scene-IMG_0352.jpg', title:'The Ridge', location:'Snow-dusted arête — UK, 2026', cat:'landscape' },
+    { src:'images/land-rover-camp.jpg', title:'Wild Camp', location:'Defender, under an old ash — UK, 2026', cat:'landrover' }
+  ];
+
+  // Render category tiles
+  const catGrid = document.getElementById('catGrid');
+  categories.forEach(c => {
+    const count = photos.filter(p => p.cat === c.key).length;
+    const tile = document.createElement('button');
+    tile.className = 'cat-tile';
+    tile.innerHTML = `
+      <img src="${c.hero}" alt="${c.title}">
+      <div class="veil"></div>
+      <div class="cat-info">
+        <h3>${c.title}</h3>
+        <div class="cat-count">${count} photo${count !== 1 ? 's' : ''}</div>
+      </div>
+    `;
+    tile.addEventListener('click', () => openCategory(c.key));
+    catGrid.appendChild(tile);
+  });
+
+  const catDetail = document.getElementById('catDetail');
+  const detailGrid = document.getElementById('detailGrid');
+  const catDetailTitle = document.getElementById('catDetailTitle');
+  const catDetailSub = document.getElementById('catDetailSub');
+  const backBtn = document.getElementById('backBtn');
+
+  let currentList = [];
+  let currentIndex = 0;
+
+  function openCategory(key){
+    const cat = categories.find(c => c.key === key);
+    currentList = photos.filter(p => p.cat === key);
+    catDetailTitle.textContent = cat.title;
+    catDetailSub.textContent = cat.subtitle;
+    detailGrid.innerHTML = '';
+    currentList.forEach((p, i) => {
+      const plate = document.createElement('div');
+      plate.className = 'plate visible';
+      plate.innerHTML = `
+        <img class="photo" src="${p.src}" alt="${p.title}" loading="lazy">
+        <div class="veil"></div>
+        <div class="corner">${String(i + 1).padStart(2,'0')}</div>
+        <div class="label">
+          <div class="name">${p.title}</div>
+          <div class="meta">${p.location}</div>
+        </div>
+      `;
+      plate.addEventListener('click', () => openLightbox(i));
+      detailGrid.appendChild(plate);
+    });
+    catGrid.hidden = true;
+    catDetail.hidden = false;
+    document.getElementById('gallery').scrollIntoView({ behavior:'smooth', block:'start' });
+  }
+
+  function closeCategory(){
+    catDetail.hidden = true;
+    catGrid.hidden = false;
+  }
+
+  backBtn.addEventListener('click', closeCategory);
+  document.querySelectorAll('a[href="#gallery"]').forEach(a => {
+    a.addEventListener('click', closeCategory);
+  });
+
+  // Lightbox
+  const lightbox = document.getElementById('lightbox');
+  const lbImage = document.getElementById('lbImage');
+  const lbTitle = document.getElementById('lbTitle');
+  const lbLocation = document.getElementById('lbLocation');
+  const lbCount = document.getElementById('lbCount');
+
+  function openLightbox(i){
+    currentIndex = i;
+    renderLightbox();
+    lightbox.hidden = false;
+  }
+  function renderLightbox(){
+    const p = currentList[currentIndex];
+    lbImage.src = p.src;
+    lbImage.alt = p.title;
+    lbTitle.textContent = p.title;
+    lbLocation.textContent = p.location;
+    lbCount.textContent = `${currentIndex + 1} / ${currentList.length}`;
+  }
+  document.getElementById('lbClose').addEventListener('click', () => lightbox.hidden = true);
+  document.getElementById('lbPrev').addEventListener('click', () => {
+    currentIndex = (currentIndex - 1 + currentList.length) % currentList.length;
+    renderLightbox();
+  });
+  document.getElementById('lbNext').addEventListener('click', () => {
+    currentIndex = (currentIndex + 1) % currentList.length;
+    renderLightbox();
+  });
+  lightbox.addEventListener('click', (e) => { if (e.target === lightbox) lightbox.hidden = true; });
+  document.addEventListener('keydown', (e) => {
+    if (lightbox.hidden) return;
+    if (e.key === 'Escape') lightbox.hidden = true;
+    if (e.key === 'ArrowLeft') document.getElementById('lbPrev').click();
+    if (e.key === 'ArrowRight') document.getElementById('lbNext').click();
+  });
+
+  // Contact form — submits to Netlify Forms via AJAX
+  const form = document.getElementById('contactForm');
+  const formMsg = document.getElementById('formMsg');
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const data = new URLSearchParams(new FormData(form)).toString();
+    formMsg.textContent = 'Sending…';
+    fetch('/', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: data
+    })
+      .then(() => {
+        formMsg.textContent = "Thanks — your message has been sent. I'll get back to you soon.";
+        form.reset();
+      })
+      .catch(() => {
+        formMsg.textContent = 'Something went wrong — please email hello@jamesheaney.co.uk directly.';
+      });
+  });
+</script>
+
+</body>
+</html>
