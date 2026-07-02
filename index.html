@@ -887,12 +887,10 @@
         <p>Available for print sales, editorial commissions, and guided trips. Based in the UK, working worldwide.</p>
         <a class="email" href="mailto:hello@jamesheaney.co.uk">hello@jamesheaney.co.uk</a>
         <div class="social-row">
-          <a href="#">Instagram</a>
-          <a href="#">Facebook</a>
-          <a href="#">Prints</a>
+          <a href="https://www.instagram.com/go.explore.more" target="_blank" rel="noopener">Instagram</a>
         </div>
       </div>
-      <form id="contactForm" name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+      <form id="contactForm" name="contact" method="POST" data-netlify="true" data-netlify-recaptcha="true" netlify-honeypot="bot-field">
         <input type="hidden" name="form-name" value="contact">
         <p hidden>
           <label>Leave this field blank: <input name="bot-field"></label>
@@ -909,6 +907,7 @@
           <label for="message">Message</label>
           <textarea id="message" name="message" rows="4" required></textarea>
         </div>
+        <div data-netlify-recaptcha="true"></div>
         <button type="submit" class="submit-btn">Send message</button>
         <p class="form-msg" id="formMsg"></p>
       </form>
@@ -1098,6 +1097,10 @@
   const formMsg = document.getElementById('formMsg');
   form.addEventListener('submit', (e) => {
     e.preventDefault();
+    if (window.grecaptcha && !grecaptcha.getResponse()) {
+      formMsg.textContent = 'Please complete the reCAPTCHA before sending.';
+      return;
+    }
     const data = new URLSearchParams(new FormData(form)).toString();
     formMsg.textContent = 'Sending…';
     fetch('/', {
@@ -1105,15 +1108,20 @@
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
       body: data
     })
-      .then(() => {
+      .then((res) => {
+        if (!res.ok) throw new Error('Submission failed');
         formMsg.textContent = "Thanks — your message has been sent. I'll get back to you soon.";
         form.reset();
+        if (window.grecaptcha) grecaptcha.reset();
       })
       .catch(() => {
         formMsg.textContent = 'Something went wrong — please email hello@jamesheaney.co.uk directly.';
+        if (window.grecaptcha) grecaptcha.reset();
       });
   });
 </script>
+
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
 
 </body>
 </html>
