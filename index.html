@@ -999,7 +999,7 @@
   // Categories — each needs a hero image for its tile
   const categories = [
     { key:'birds', title:'Birds', subtitle:'Raptors, garden birds & the moments in between', hero:'images/sparrowhawk-face.jpg' },
-    { key:'other-wildlife', title:'Wildlife', subtitle:'Mammals, insects & everything else', hero:'images/hare-grass.jpg' },
+    { key:'other-wildlife', title:'Wildlife', subtitle:'Mammals, insects & everything else', hero:'images/0F3A0135.jpg' },
     { key:'landscape', title:'Landscape', subtitle:'Fells, water & weather', hero:'images/scene-IMG_0568.jpg' },
     { key:'landrover', title:'Land Rover', subtitle:'Wild camps & the roads between', hero:'images/land-rover-camp.jpg' },
     { key:'macro', title:'Macro', subtitle:'Close-up detail in the small stuff', hero:'images/ladybird-stem.jpg' }
@@ -1080,6 +1080,9 @@
     { src:'images/0F3A5321.jpg', title:'Red Squirrel', location:'Cracking a nut — UK, 2026', cat:'other-wildlife' }
   ];
 
+  // Grid tiles only need a small preview — full-res photos are reserved for the lightbox
+  const thumb = src => src.replace('images/', 'images/thumbs/');
+
   // Render category tiles
   const catGrid = document.getElementById('catGrid');
   categories.forEach(c => {
@@ -1087,7 +1090,7 @@
     const tile = document.createElement('button');
     tile.className = 'cat-tile';
     tile.innerHTML = `
-      <img src="${c.hero}" alt="${c.title}">
+      <img src="${thumb(c.hero)}" alt="${c.title}" loading="lazy">
       <div class="veil"></div>
       <div class="cat-info">
         <h3>${c.title}</h3>
@@ -1117,7 +1120,7 @@
       const plate = document.createElement('div');
       plate.className = 'plate visible';
       plate.innerHTML = `
-        <img class="photo" src="${p.src}" alt="${p.title}" loading="lazy">
+        <img class="photo" src="${thumb(p.src)}" alt="${p.title}" loading="lazy">
         <div class="veil"></div>
         <div class="corner">${String(i + 1).padStart(2,'0')}</div>
         <div class="label">
