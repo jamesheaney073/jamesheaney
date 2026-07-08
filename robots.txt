@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://jamesheaney.co.uk/sitemap.xml
