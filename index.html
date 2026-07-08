@@ -782,10 +782,13 @@
 <section class="hero" id="top">
   <div class="hero-bg" id="heroBg">
     <div class="hero-slide active" style="background-image:url('images/sparrowhawk-face.jpg')"></div>
-    <div class="hero-slide" style="background-image:url('images/wild-0F3A3691.jpg')"></div>
+    <div class="hero-slide" style="background-image:url('images/owl-log.jpg')"></div>
     <div class="hero-slide" style="background-image:url('images/scene-IMG_0431.jpg')"></div>
-    <div class="hero-slide" style="background-image:url('images/land-rover-camp.jpg')"></div>
-    <div class="hero-slide" style="background-image:url('images/scene-IMG_0568.jpg')"></div>
+    <div class="hero-slide" style="background-image:url('images/0F3A2057.jpg')"></div>
+    <div class="hero-slide" style="background-image:url('images/grass-macro.jpg')"></div>
+    <div class="hero-slide" style="background-image:url('images/0F3A9512.jpg')"></div>
+    <div class="hero-slide" style="background-image:url('images/ladybird-stem.jpg')"></div>
+    <div class="hero-slide" style="background-image:url('images/scene-IMG_0545.jpg')"></div>
     <div class="hero-gradient"></div>
   </div>
   <div class="hero-grain"></div>
@@ -921,8 +924,18 @@
 </footer>
 
 <script>
-  // Hero background slideshow
-  const heroSlides = document.querySelectorAll('.hero-slide');
+  // Hero background slideshow — shuffled to a random order on each load
+  const heroBg = document.getElementById('heroBg');
+  const heroSlideEls = Array.from(document.querySelectorAll('.hero-slide'));
+  for (let i = heroSlideEls.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [heroSlideEls[i], heroSlideEls[j]] = [heroSlideEls[j], heroSlideEls[i]];
+  }
+  heroSlideEls.forEach((slide, i) => {
+    slide.classList.toggle('active', i === 0);
+    heroBg.insertBefore(slide, heroBg.querySelector('.hero-gradient'));
+  });
+  const heroSlides = heroSlideEls;
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   if (heroSlides.length > 1 && !prefersReducedMotion) {
     let heroIndex = 0;
@@ -947,34 +960,36 @@
 
   // Categories — each needs a hero image for its tile
   const categories = [
-    { key:'wildlife', title:'Wildlife', subtitle:'Birds, mammals & the moments in between', hero:'images/sparrowhawk-face.jpg' },
+    { key:'birds', title:'Birds', subtitle:'Raptors, garden birds & the moments in between', hero:'images/sparrowhawk-face.jpg' },
+    { key:'other-wildlife', title:'Wildlife', subtitle:'Mammals, insects & everything else', hero:'images/hare-grass.jpg' },
     { key:'landscape', title:'Landscape', subtitle:'Fells, water & weather', hero:'images/scene-IMG_0568.jpg' },
-    { key:'landrover', title:'Land Rover', subtitle:'Wild camps & the roads between', hero:'images/land-rover-camp.jpg' }
+    { key:'landrover', title:'Land Rover', subtitle:'Wild camps & the roads between', hero:'images/land-rover-camp.jpg' },
+    { key:'macro', title:'Macro', subtitle:'Close-up detail in the small stuff', hero:'images/ladybird-stem.jpg' }
   ];
 
-  // Real photo data — edit title, location and cat (wildlife | landscape | landrover) as needed
+  // Real photo data — edit title, location and cat (birds | other-wildlife | landscape | landrover | macro) as needed
   const photos = [
-    { src:'images/sparrowhawk-face.jpg', title:'Sparrowhawk', location:'Head-on, winter light — UK, 2026', cat:'wildlife' },
-    { src:'images/owl-log.jpg', title:'Little Owl', location:'On watch, log perch — UK, 2026', cat:'wildlife' },
-    { src:'images/hare-grass.jpg', title:'Brown Hare', location:'Grazing among buttercups — UK, 2026', cat:'wildlife' },
-    { src:'images/sparrowhawk-branch.jpg', title:'Sparrowhawk', location:'Landing on lichen — UK, 2026', cat:'wildlife' },
-    { src:'images/hare-path.jpg', title:'Brown Hare', location:'Track-side, early summer — UK, 2026', cat:'wildlife' },
-    { src:'images/squirrel-tree.jpg', title:'Grey Squirrel', location:'Climbing, spring light — UK, 2026', cat:'wildlife' },
-    { src:'images/jay-flight.png', title:'Eurasian Jay', location:'Taking off, first snow — UK, 2026', cat:'wildlife' },
-    { src:'images/ladybird-stem.jpg', title:'Ladybird', location:'On a grass stem — UK, 2026', cat:'wildlife' },
-    { src:'images/wild-0F3A7175.jpg', title:'Marsh Harrier', location:'Carrying nesting material — UK, 2026', cat:'wildlife' },
-    { src:'images/wild-0F3A2626.jpg', title:'Stonechat', location:'Perched on a stem — UK, 2026', cat:'wildlife' },
-    { src:'images/wild-0F3A6959.jpg', title:'Red Kite', location:'Banking overhead — UK, 2026', cat:'wildlife' },
-    { src:'images/wild-0F3A3225.jpg', title:'Red Kite', location:'Wings at full stretch — UK, 2026', cat:'wildlife' },
-    { src:'images/wild-0F3A3583.jpg', title:'Raptor at Sunset', location:'Silhouette against the sun — UK, 2026', cat:'wildlife' },
-    { src:'images/wild-0F3A3547.jpg', title:'Red Kite', location:'Close pass overhead — UK, 2026', cat:'wildlife' },
-    { src:'images/wild-0F3A2499.jpg', title:'Roe Deer', location:"Alert, water's edge — UK, 2026", cat:'wildlife' },
-    { src:'images/wild-0F3A2738.jpg', title:'Egret', location:'In flight — UK, 2026', cat:'wildlife' },
-    { src:'images/wild-0F3A0411.jpg', title:'Robin', location:'Autumn perch — UK, 2026', cat:'wildlife' },
-    { src:'images/wild-0F3A3532.jpg', title:'Raptor at Sunset', location:'Evening flight, silhouette — UK, 2026', cat:'wildlife' },
-    { src:'images/wild-0F3A9814.jpg', title:'Kestrel', location:'On the fence post — UK, 2026', cat:'wildlife' },
-    { src:'images/wild-0F3A3691.jpg', title:'Red Kites', location:'A pair, mid-air — UK, 2026', cat:'wildlife' },
-    { src:'images/wild-0F3A9035.jpg', title:'Kingfisher', location:'On a low branch — UK, 2026', cat:'wildlife' },
+    { src:'images/sparrowhawk-face.jpg', title:'Sparrowhawk', location:'Head-on, winter light — UK, 2026', cat:'birds' },
+    { src:'images/owl-log.jpg', title:'Little Owl', location:'On watch, log perch — UK, 2026', cat:'birds' },
+    { src:'images/hare-grass.jpg', title:'Brown Hare', location:'Grazing among buttercups — UK, 2026', cat:'other-wildlife' },
+    { src:'images/sparrowhawk-branch.jpg', title:'Sparrowhawk', location:'Landing on lichen — UK, 2026', cat:'birds' },
+    { src:'images/hare-path.jpg', title:'Brown Hare', location:'Track-side, early summer — UK, 2026', cat:'other-wildlife' },
+    { src:'images/squirrel-tree.jpg', title:'Grey Squirrel', location:'Climbing, spring light — UK, 2026', cat:'other-wildlife' },
+    { src:'images/jay-flight.png', title:'Eurasian Jay', location:'Taking off, first snow — UK, 2026', cat:'birds' },
+    { src:'images/ladybird-stem.jpg', title:'Ladybird', location:'On a grass stem — UK, 2026', cat:'macro' },
+    { src:'images/wild-0F3A7175.jpg', title:'Marsh Harrier', location:'Carrying nesting material — UK, 2026', cat:'birds' },
+    { src:'images/wild-0F3A2626.jpg', title:'Stonechat', location:'Perched on a stem — UK, 2026', cat:'birds' },
+    { src:'images/wild-0F3A6959.jpg', title:'Red Kite', location:'Banking overhead — UK, 2026', cat:'birds' },
+    { src:'images/wild-0F3A3225.jpg', title:'Red Kite', location:'Wings at full stretch — UK, 2026', cat:'birds' },
+    { src:'images/wild-0F3A3583.jpg', title:'Raptor at Sunset', location:'Silhouette against the sun — UK, 2026', cat:'birds' },
+    { src:'images/wild-0F3A3547.jpg', title:'Red Kite', location:'Close pass overhead — UK, 2026', cat:'birds' },
+    { src:'images/wild-0F3A2499.jpg', title:'Roe Deer', location:"Alert, water's edge — UK, 2026", cat:'other-wildlife' },
+    { src:'images/wild-0F3A2738.jpg', title:'Egret', location:'In flight — UK, 2026', cat:'birds' },
+    { src:'images/wild-0F3A0411.jpg', title:'Robin', location:'Autumn perch — UK, 2026', cat:'birds' },
+    { src:'images/wild-0F3A3532.jpg', title:'Raptor at Sunset', location:'Evening flight, silhouette — UK, 2026', cat:'birds' },
+    { src:'images/wild-0F3A9814.jpg', title:'Kestrel', location:'On the fence post — UK, 2026', cat:'birds' },
+    { src:'images/wild-0F3A3691.jpg', title:'Red Kites', location:'A pair, mid-air — UK, 2026', cat:'birds' },
+    { src:'images/wild-0F3A9035.jpg', title:'Kingfisher', location:'On a low branch — UK, 2026', cat:'birds' },
     { src:'images/grass-macro.jpg', title:'Backlit Meadow', location:'Evening light, grassland — UK, 2026', cat:'landscape' },
     { src:'images/wild-4.jpg', title:'Mountain Ridge', location:'Snow line, winter — UK, 2026', cat:'landscape' },
     { src:'images/wild-5.jpg', title:'Stone Wall', location:'Fellside boundary — UK, 2026', cat:'landscape' },
@@ -989,7 +1004,42 @@
     { src:'images/scene-IMG_0433.jpg', title:'Winter Light', location:'Sun through cloud — UK, 2026', cat:'landscape' },
     { src:'images/scene-IMG_0568.jpg', title:'Evening Moorings', location:'Sunset at the marina — UK, 2026', cat:'landscape' },
     { src:'images/scene-IMG_0352.jpg', title:'The Ridge', location:'Snow-dusted arête — UK, 2026', cat:'landscape' },
-    { src:'images/land-rover-camp.jpg', title:'Wild Camp', location:'Defender, under an old ash — UK, 2026', cat:'landrover' }
+    { src:'images/land-rover-camp.jpg', title:'Wild Camp', location:'Defender, under an old ash — UK, 2026', cat:'landrover' },
+    { src:'images/0F3A4774.jpg', title:'Wild Camp', location:'Hilltop pitch, big skies — UK, 2026', cat:'landrover' },
+    { src:'images/0F3A0782.jpg', title:'Canada Goose', location:'In flight — UK, 2026', cat:'birds' },
+    { src:'images/0F3A1598.jpg', title:'Atlantic Puffin', location:'Coming in to land, cliffside — UK, 2026', cat:'birds' },
+    { src:'images/0F3A2042.jpg', title:'Crested Tit', location:'On a birch stump — UK, 2026', cat:'birds' },
+    { src:'images/0F3A2057.jpg', title:'Crested Tit', location:'Close portrait, birch stump — UK, 2026', cat:'birds' },
+    { src:'images/0F3A2700.jpg', title:'Grey-headed Woodpecker', location:'In flight through falling snow — UK, 2026', cat:'birds' },
+    { src:'images/0F3A2787.jpg', title:'Treecreeper', location:'Working a mossy trunk — UK, 2026', cat:'birds' },
+    { src:'images/0F3A2834.jpg', title:'Treecreeper', location:'Beside a moss-covered nest — UK, 2026', cat:'birds' },
+    { src:'images/0F3A4001.jpg', title:'Grey-headed Woodpecker', location:'Watching a great spotted woodpecker land — UK, 2026', cat:'birds' },
+    { src:'images/0F3A4318.jpg', title:'Common Buzzard', location:'On a snow-covered post — UK, 2026', cat:'birds' },
+    { src:'images/0F3A5305.jpg', title:'Great Spotted Woodpecker', location:'Face to face with a tree sparrow — UK, 2026', cat:'birds' },
+    { src:'images/0F3A6066.jpg', title:'Great Spotted Woodpecker', location:'Clinging to a birch trunk — UK, 2026', cat:'birds' },
+    { src:'images/0F3A7365.jpg', title:'Eurasian Jay', location:'Perched, winter light — UK, 2026', cat:'birds' },
+    { src:'images/0F3A7675.jpg', title:'Great Spotted Woodpeckers', location:'A pair meet on a birch stump — UK, 2026', cat:'birds' },
+    { src:'images/0F3A7676.jpg', title:'Great Spotted Woodpeckers', location:'Wings spread, close encounter — UK, 2026', cat:'birds' },
+    { src:'images/0F3A7693.jpg', title:'Great Spotted Woodpeckers', location:'One takes flight from the stump — UK, 2026', cat:'birds' },
+    { src:'images/0F3A7694.jpg', title:'Great Spotted Woodpeckers', location:'Mid-air departure — UK, 2026', cat:'birds' },
+    { src:'images/0F3A7695.jpg', title:'Great Spotted Woodpecker', location:'Watching its mate fly off — UK, 2026', cat:'birds' },
+    { src:'images/0F3A8995.jpg', title:'Common Kingfisher', location:'Portrait on a lichen branch — UK, 2026', cat:'birds' },
+    { src:'images/0F3A9033.jpg', title:'Common Kingfisher', location:'On a lichen-covered perch — UK, 2026', cat:'birds' },
+    { src:'images/0F3A9505.jpg', title:'Great Spotted Woodpeckers', location:'A close exchange on the stump — UK, 2026', cat:'birds' },
+    { src:'images/0F3A9506.jpg', title:'Great Spotted Woodpeckers', location:'One flies clear, wings full stretch — UK, 2026', cat:'birds' },
+    { src:'images/0F3A9507.jpg', title:'Great Spotted Woodpecker', location:'Holding the stump as its mate departs — UK, 2026', cat:'birds' },
+    { src:'images/0F3A9512.jpg', title:'Common Kingfisher', location:'Warm evening light, perched — UK, 2026', cat:'birds' },
+    { src:'images/0F3A0135.jpg', title:'Red Squirrel', location:'Leaping, paws forward — UK, 2026', cat:'other-wildlife' },
+    { src:'images/0F3A0194.jpg', title:'Red Squirrel', location:'Diving low over water — UK, 2026', cat:'other-wildlife' },
+    { src:'images/0F3A0230.jpg', title:'Red Squirrel', location:'Mid-leap, ears up — UK, 2026', cat:'other-wildlife' },
+    { src:'images/0F3A0265.jpg', title:'Red Squirrel', location:'Full stretch in mid-air — UK, 2026', cat:'other-wildlife' },
+    { src:'images/0F3A0285.jpg', title:'Red Squirrel', location:'Coming in to land — UK, 2026', cat:'other-wildlife' },
+    { src:'images/0F3A0307.jpg', title:'Red Squirrel', location:'Arms spread, mid-leap — UK, 2026', cat:'other-wildlife' },
+    { src:'images/0F3A0379.jpg', title:'Red Squirrel', location:'Leaping toward camera — UK, 2026', cat:'other-wildlife' },
+    { src:'images/0F3A0387.jpg', title:'Red Squirrel', location:'Side profile on a mossy stump — UK, 2026', cat:'other-wildlife' },
+    { src:'images/0F3A4589.jpg', title:'Red Squirrel', location:"At the water's edge with a nut — UK, 2026", cat:'other-wildlife' },
+    { src:'images/0F3A4777.jpg', title:'Red Squirrel', location:'Close portrait, damp fur — UK, 2026', cat:'other-wildlife' },
+    { src:'images/0F3A5321.jpg', title:'Red Squirrel', location:'Cracking a nut — UK, 2026', cat:'other-wildlife' }
   ];
 
   // Render category tiles
@@ -1042,7 +1092,7 @@
     });
     catGrid.hidden = true;
     catDetail.hidden = false;
-    document.getElementById('gallery').scrollIntoView({ behavior:'smooth', block:'start' });
+    catDetail.scrollIntoView({ behavior:'smooth', block:'start' });
   }
 
   function closeCategory(){
