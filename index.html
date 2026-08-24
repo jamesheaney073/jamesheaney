@@ -702,11 +702,15 @@
     letter-spacing:0.05em;
   }
   .social-row a{
+    display:inline-flex;
+    align-items:center;
+    gap:0.55em;
     border-bottom:1px solid transparent;
     padding-bottom:2px;
     transition:border-color 0.2s ease, color 0.2s ease;
   }
   .social-row a:hover{border-color:var(--ochre); color:var(--ochre);}
+  .social-row svg{width:1.05em; height:1.05em; flex:none;}
 
   form{display:flex; flex-direction:column; gap:1.3rem;}
   .field{display:flex; flex-direction:column; gap:0.5rem;}
@@ -928,7 +932,14 @@
         <p>Available for print sales, editorial commissions, and guided trips. Based in the UK, working worldwide.</p>
         <a class="email" href="mailto:hello@jamesheaney.co.uk">hello@jamesheaney.co.uk</a>
         <div class="social-row">
-          <a href="https://www.instagram.com/go.explore.more" target="_blank" rel="noopener">Instagram</a>
+          <a href="https://www.instagram.com/go.explore.more" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+              <rect x="2.5" y="2.5" width="19" height="19" rx="5"></rect>
+              <circle cx="12" cy="12" r="4.6"></circle>
+              <circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" stroke="none"></circle>
+            </svg>
+            <span>@go.explore.more</span>
+          </a>
         </div>
       </div>
       <form id="contactForm" name="contact" method="POST" data-netlify="true" data-netlify-recaptcha="true" netlify-honeypot="bot-field">
